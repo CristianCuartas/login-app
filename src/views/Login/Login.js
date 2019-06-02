@@ -28,8 +28,25 @@ class Login extends Component {
       [e.target.name]: e.target.value
     });
   };
-
+handleSubmit = e =>{
+  e.preventDefault();
+  console.log(this.state);
+}
   render() {
+  
+    const url ='http://localhost:3000/#/';
+    const {username, password} = this.state;
+
+    fetch(url, {
+      method: 'POST', // or 'PUT'
+      body: JSON.stringify(this.state), // data can be `string` or {object}!
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success:', response));
+
     return (
       <div className="app flex-row align-items-center">
       <div style={{marginTop:"150px"}}>
@@ -85,6 +102,7 @@ class Login extends Component {
                       <Row>
                       <Col xs="6">
                         <Button
+                          onSubmit={e => this.handleSubmit(e)}
                           href="#HomePage"
                           className="btn  btn-block"
                           color="primary"
