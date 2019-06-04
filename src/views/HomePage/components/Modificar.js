@@ -17,7 +17,7 @@ import {
   NavLink
 } from "reactstrap";
 
-class HomePage extends Component {
+class Modificar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +37,6 @@ class HomePage extends Component {
     });
   };
 
-
   render() {
     return (
 
@@ -47,7 +46,7 @@ class HomePage extends Component {
           <Navbar  color="faded" light>
             <NavbarBrand href="#" className="mr-auto"></NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Button className="" color="danger" href="#">
+            <Button href="#" className="" color="danger">
               Log out! <i className="fa fa-arrow-circle-right" />
             </Button>
              <Collapse isOpen={!this.state.collapsed} navbar>
@@ -74,4 +73,4 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+export default Modificar;

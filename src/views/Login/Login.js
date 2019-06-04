@@ -13,6 +13,7 @@ import {
   InputGroupText,
   Row
 } from "reactstrap";
+import url from './../../Conection/server';
 
 class Login extends Component {
   constructor(props) {
@@ -23,30 +24,39 @@ class Login extends Component {
     };
   }
 
-  handleChangeInput = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
-handleSubmit = e =>{
-  e.preventDefault();
-  console.log(this.state);
-}
-  render() {
-  
-    const url ='http://localhost:3000/#/';
-    const {username, password} = this.state;
-
-    fetch(url, {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify(this.state), // data can be `string` or {object}!
+  sendData = () => {
+    fetch(url + "auth/login", {
+      method: 'POST', 
+      body: JSON.stringify({
+        email: this.state.username,
+        password: this.state.password
+      }), 
       headers:{
         'Content-Type': 'application/json'
       }
-    }).then(res => res.json())
+    })
+    .then(res => res.json())
     .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+    .then(response => {localStorage.setItem( 'access_token', JSON.stringify(response.access_token))
+                       console.log('Success:', response)
+                       console.log(response.access_token)
+                      
+                       if (response.access_token !== undefined){
+                        window.location="http://localhost:3000/#/HomePage"
+                       } else {
+                         alert("Los campos ingresados son incorrectos")
+                       }
+                       
+        });
+}
 
+handleSubmit = e =>{
+  e.preventDefault();
+  this.sendData();
+}
+
+  render() {
+    console.log (localStorage.getItem('access_token'));
     return (
       <div className="app flex-row align-items-center">
       <div style={{marginTop:"150px"}}>
@@ -80,9 +90,7 @@ handleSubmit = e =>{
                           type="text"
                           placeholder="Username"
                           autoComplete="username"
-                          onChange={e => {
-                            this.handleChangeInput(e);
-                          }}
+                          onChange={(e) => {this.setState({username: e.target.value});}}
                         />
                       </InputGroup>
                       <InputGroup className="mb-4">
@@ -96,16 +104,18 @@ handleSubmit = e =>{
                           type="password"
                           placeholder="Password"
                           autoComplete="current-password"
-                          onChange={e => this.handleChangeInput(e)}
+                          onChange={(e) => {this.setState({password: e.target.value});}}
+
                         />
                       </InputGroup>
                       <Row>
                       <Col xs="6">
                         <Button
-                          onSubmit={e => this.handleSubmit(e)}
+                          type="button"
                           href="#HomePage"
                           className="btn  btn-block"
                           color="primary"
+                          onClick={(e) => this.handleSubmit(e)}
                         >
                           Go! <i className="fa fa-arrow-circle-right" />
                         </Button>
