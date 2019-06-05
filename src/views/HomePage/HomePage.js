@@ -17,6 +17,7 @@ import {
   NavLink
 } from "reactstrap";
 
+
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -47,8 +48,8 @@ class HomePage extends Component {
           <Navbar  color="faded" light>
             <NavbarBrand href="#" className="mr-auto"></NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Button className="" color="danger" href="#">
-              Log out! <i className="fa fa-arrow-circle-right" />
+            <Button className="" color="danger" href="/#/logout">
+            Log out! <i className="fa fa-arrow-circle-right" />
             </Button>
              <Collapse isOpen={!this.state.collapsed} navbar>
               <Nav navbar>
@@ -56,7 +57,7 @@ class HomePage extends Component {
                 <NavLink href="#Ver">Ver </NavLink>
                </NavItem>
                <NavItem>
-                <NavLink href="#Register">Registrar </NavLink>
+                <NavLink href="/#/logout">Registrar </NavLink>
                </NavItem>
                <NavItem>
                 <NavLink href="#Modificar">Modificar </NavLink>

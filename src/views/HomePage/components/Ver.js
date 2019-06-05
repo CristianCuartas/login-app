@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { TableHeaderColumn, BootstrapTable } from 'react-bootstrap-table';
-import { Row, Col, Container, NavbarBrand, NavbarToggler, Nav, Navbar, Button, Collapse, NavItem, NavLink} from 'reactstrap';
+import { Table, Row, Col, Container, NavbarBrand, NavbarToggler, Nav, Navbar, Button, Collapse, NavItem, NavLink} from 'reactstrap';
+import url from "./../../../Conection/server";
 
 const dataVer = [
     {
@@ -18,30 +19,62 @@ const dataVer = [
 
 ]
 
+
 class Ver extends Component{
     constructor(props){
         super(props);
         this.state={
           collapsed: true,
+          data:[],
+          token: "Bearer"
         };
         this.toggleNavbar = this.toggleNavbar.bind(this);
     }
+
     toggleNavbar(){
       this.setState({
         collapsed:!this.state.collapsed    
       })
     }
 
+    getData = () => {
+      fetch(url + "products", {
+        method: 'GET', // or 'PUT'
+        headers:{
+          'Content-Type': 'application/json',
+          'Authorization': this.state.token,
+        }
+      }).then(res => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => this.setState({ data: response }));
+    }
+    
+
+    componentDidMount(){
+      this.getData();
+    }
+
     render(){
-        return(
-          <div className="app flex-row align-items-center">
+      const aux = this.state.data.map((obj, idx) => {
+        return (
+          <tr key={idx} value={obj.id}>
+            <td scope="col">{obj.id}</td>
+            <td scope="col">{obj.name}</td>
+            <td scope="col">{obj.cost}</td>
+            <td scope="col">{obj.quantity}</td>
+          </tr>
+        )
+      })
+      console.log(this.state.data);
+    return(
+    <div className="app flex-row align-items-center">
       <div style={{marginTop:"50px"}}>
         <Container>
           <Navbar  color="faded" light>
             <NavbarBrand href="#" className="mr-auto"></NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Button href="#" className="" color="danger">
-              Log out! <i className="fa fa-arrow-circle-right" />
+            <Button className="" color="danger" href="/#/logout">
+            Log out! <i className="fa fa-arrow-circle-right" />
             </Button>
              <Collapse isOpen={!this.state.collapsed} navbar>
               <Nav navbar>
@@ -50,7 +83,7 @@ class Ver extends Component{
                </NavItem>
                <NavItem>
                <NavItem>
-                <NavLink href="#Register">Registrar </NavLink>
+                <NavLink href="/#/logout">Registrar </NavLink>
                </NavItem>
                 <NavLink href="#Modificar">Modificar </NavLink>
                </NavItem>
@@ -60,43 +93,23 @@ class Ver extends Component{
               </Nav>
             </Collapse>
           </Navbar>
-          <div style={{marginTop:"200px"}}>
-
-          <div className="table-reponsive">
-            <Row>
-              <Col md="12">
-                <div className="table-ver">
-                  <BootstrapTable
-                    data={dataVer}
-                    hover
-                    striped
-                    bordered={false}
-                    className="texto-small tableloc"
-                  >
-                    <TableHeaderColumn
-                      dataSort={true}
-                      isKey
-                      dataField={'nombre'}
-                      dataAlign="center"
-                      width={"250px"}
-                    >
-                      Nombre
-                    </TableHeaderColumn>
-                    <TableHeaderColumn
-                      dataSort={true}
-                      dataField={'edad'}
-                      dataAlign="center"
-                      width={"250px"}
-                    >
-                      {' '}
-                      Edad{' '}
-                    </TableHeaderColumn>
-                    </BootstrapTable>
-                    </div>
-                    </Col>
-                    </Row>
-                    </div>
-                    </div>
+          <div style={{marginTop:"100px"}}>
+          <h1 className="text-center">P R O D U C T O S</h1>
+          <br />
+          <div className="text-center">
+           <Table striped dark className="tableMap">
+             <thead className="thead-light">
+                <tr>
+                  <th style={{width:"150px"}} scope="row">Id</th>
+                  <th style={{width:"150px"}} scope="row">Nombre</th>
+                  <th style={{width:"150px"}} scope="row">Costo</th>
+                  <th style={{width:"150px"}} scope="row">Cantidad</th>
+                </tr>
+              </thead>
+                <tbody>{aux}</tbody>
+            </Table>
+            </div>
+          </div>
           </Container>
         </div>
             </div>

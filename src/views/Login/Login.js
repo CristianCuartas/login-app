@@ -11,17 +11,27 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Row
+  Row,
+  Alert
 } from "reactstrap";
 import url from './../../Conection/server';
+
+
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      visible: false,
+      redirectToReferrer:false
     };
+    this.onDismiss = this.onDismiss.bind(this);
+  }
+
+  onDismiss(){
+    this.setState({ visible:false });
   }
 
   sendData = () => {
@@ -43,8 +53,8 @@ class Login extends Component {
                       
                        if (response.access_token !== undefined){
                         window.location="http://localhost:3000/#/HomePage"
-                       } else {
-                         alert("Los campos ingresados son incorrectos")
+                       } else {                       
+                            this.setState({ visible: true})  
                        }
                        
         });
@@ -56,7 +66,7 @@ handleSubmit = e =>{
 }
 
   render() {
-    console.log (localStorage.getItem('access_token'));
+    // console.log (localStorage.getItem('access_token'));
     return (
       <div className="app flex-row align-items-center">
       <div style={{marginTop:"150px"}}>
@@ -108,6 +118,11 @@ handleSubmit = e =>{
 
                         />
                       </InputGroup>
+
+                      <Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss}>
+                      <b>Email y/o password incorrecto.</b>
+                      </Alert>
+
                       <Row>
                       <Col xs="6">
                         <Button

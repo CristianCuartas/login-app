@@ -46,8 +46,8 @@ class Modificar extends Component {
           <Navbar  color="faded" light>
             <NavbarBrand href="#" className="mr-auto"></NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Button href="#" className="" color="danger">
-              Log out! <i className="fa fa-arrow-circle-right" />
+            <Button className="" color="danger" href="/#/logout">
+            Log out! <i className="fa fa-arrow-circle-right" />
             </Button>
              <Collapse isOpen={!this.state.collapsed} navbar>
               <Nav navbar>
@@ -55,7 +55,7 @@ class Modificar extends Component {
                 <NavLink href="#Ver">Ver </NavLink>
                </NavItem>
                <NavItem>
-                <NavLink href="#Register">Registrar </NavLink>
+                <NavLink href="/#/logout">Registrar </NavLink>
                </NavItem>
                <NavItem>
                 <NavLink href="#Modificar">Modificar </NavLink>
