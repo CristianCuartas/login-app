@@ -20,8 +20,11 @@ import {
   Input,
   Table
 } from "reactstrap";
+import { TableHeaderColumn, BootstrapTable } from 'react-bootstrap-table';
 import url from "./../../../Conection/server";
 import urlProducts from "../../../Conection/serverBD";
+import "./../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
+import ModalUdapte from './../components/Modals/ModalUdapte';
 
 class Modificar extends Component {
   constructor(props) {
@@ -29,7 +32,7 @@ class Modificar extends Component {
     this.state = {
     collapsed: true,
     collapsedUdapte: false,
-    producto: [],
+    modal: false,
     data:[],
     token: "Bearer",
     id: '',
@@ -46,13 +49,13 @@ class Modificar extends Component {
     })
     
   }
-
   toggleNavbar(){
     this.setState({
       collapsed:!this.state.collapsed    
     })
   }
-  // `products/${this.state.id}`
+
+
   selectUdaptade = () => {
     fetch(url + "products", {
       method: 'GET', // or 'PUT'
@@ -65,47 +68,23 @@ class Modificar extends Component {
     .catch(error => console.error('Error:', error))
     .then(response => this.setState({ data: response }));
   }
+  componentDidMount(){
+    this.selectUdaptade();
+  }
 
- udapteData =()=>{
-  fetch(urlProducts + `${this.state.id}` , {
-    method: 'PUT',
-    body: JSON.stringify({
-      "id":   this.state.id,
-      "name": this.state.name,
-      "cost": this.state.cost ,
-      "quantity": this.state.quantity
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': this.state.token,
-    }
-  }).then(response => response.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => this.setState({ producto: response }));
- }
-handleUdapte = e => {
-  e.preventDefault();
-  this.udapteData();
-  window.location.reload();
+renderDetail(cell, row){
+  return(
+    <Button outline color="primary" onClick={()=>{this.openModal(row.id)}}>Modificar producto</Button>
+  )
 }
 
-componentDidMount(){
-  this.selectUdaptade();
+openModal(value){
+this.refs.children2.toggle(value);
 }
+
+
 
   render() {
-    const aux = this.state.data.map((obj, idx) => {
-      return (
-        <tr key={idx} value={obj.id}>
-          <td scope="col">{obj.id}</td>
-          <td scope="col">{obj.name}</td>
-          <td scope="col">{obj.cost}</td>
-          <td scope="col">{obj.quantity}</td>
-          <td><Button className="text-right" outline color="primary" onClick={this.toggleUdapte} style={{ marginBottom: '1rem' }}>Modificar</Button></td>
-        </tr>
-      )
-    });
-    console.log(this.state.id);
     return (
       <div className="app flex-row align-items-center">
       <div style={{marginTop:"50px"}}>
@@ -122,9 +101,9 @@ componentDidMount(){
                 <NavLink href="#Ver">Ver </NavLink>
                </NavItem>
                <NavItem>
+               <NavItem>
                 <NavLink href="/#/logout">Registrar </NavLink>
                </NavItem>
-               <NavItem>
                 <NavLink href="#Modificar">Modificar </NavLink>
                </NavItem>
                <NavItem>
@@ -133,63 +112,54 @@ componentDidMount(){
               </Nav>
             </Collapse>
           </Navbar>
-
           <div style={{marginTop:"100px"}}>
           <h1 className="text-center">P R O D U C T O S</h1>
           <br />
           <div className="text-center">
-           <Table  className="tableMap">
-             <thead className="">
-                <tr>
-                  <th style={{width:"150px"}} scope="row">Id </th>
-                  <th style={{width:"150px"}} scope="row">Nombre</th>
-                  <th style={{width:"150px"}} scope="row">Costo</th>
-                  <th style={{width:"150px"}} scope="row">Cantidad</th>
-                  <th style={{width:"150px"}} scope="row">Modificar</th>
-                </tr>
-              </thead>
-                <tbody>{aux}</tbody>
-            </Table>
+            <div className="container">
+              <div className="row">
+                  <div className="col-md-12">
+                    <BootstrapTable data={this.state.data}  bordered={ false } hover striped>
+                      <TableHeaderColumn 
+                      isKey width={"50"}
+                      dataAlign="center"
+                      dataField={"id"}> 
+                      Producto ID 
+                      </TableHeaderColumn>
+                      <TableHeaderColumn 
+                      width={"50"}
+                      dataAlign="center" 
+                      dataField={"name"}> 
+                      Nombre  
+                       </TableHeaderColumn>
+                      <TableHeaderColumn 
+                      width={"50"}
+                      dataAlign="center"
+                      dataField={"cost"}> 
+                      Costo 
+                      </TableHeaderColumn>
+                      <TableHeaderColumn 
+                      width={"50"}
+                      dataAlign="center"
+                      dataField={"quantity"}> 
+                      Cantidad 
+                      </TableHeaderColumn>
+                      <TableHeaderColumn width={"50"}
+                      dataAlign="center"
+                      dataFormat={(cell, row) => this.renderDetail(cell,row)}
+                      >
+                       Acciones
+                      </TableHeaderColumn>
+                    </BootstrapTable>
+                  </div>
+                </div>
+                  <ModalUdapte modaludapte={this.state.modal} ref={"children2"}/>
+            </div>      
             </div>
-          <Collapse isOpen={this.state.collapsedUdapte}>
-          <Form>
-          <Row form>
-            <Col md={1}>
-              <FormGroup>
-                <Label for="id">Id:</Label>
-                <Input onChange={(e) => {this.setState({id: e.target.value});}}
-                type="text" name="id" placeholder="" />
-              </FormGroup>
-            </Col>
-            <Col md={3}>
-              <FormGroup>
-                <Label for="name">Nombre:</Label>
-                <Input onChange={(e) => {this.setState({name: e.target.value});}}
-                type="text" name="name" placeholder="Nuevo nombre" />
-              </FormGroup>
-            </Col>
-          <Col md={3}>
-          <FormGroup>
-            <Label for="cost">Costo:</Label>
-            <Input onChange={(e) => {this.setState({cost: e.target.value});}}
-            type="text" name="cost" placeholder= "Nuevo costo" />
-          </FormGroup>
-          </Col>
-          <Col md={3}>
-          <FormGroup>
-            <Label for="quantity">Cantidad:</Label>
-            <Input onChange={(e) => {this.setState({quantity: e.target.value});}}
-            type="text" name="quantity" placeholder="Nueva cantidad"/>
-          </FormGroup>
-          </Col>
-          </Row>
-          <Button color="primary" onClick={(e) => this.handleUdapte(e)} >Update</Button>
-        </Form>
-        </Collapse>
-        </div>
-          </Container>
-        </div>
-      </div>
+            </div>
+            </Container>
+            </div>
+            </div>
     );
   }
 }

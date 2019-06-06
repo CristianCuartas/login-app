@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button}  from "reactstrap";
 import url from "../../../../Conection/server";
-import { relative } from "path";
 
 
 class ModalView extends Component {
@@ -19,7 +18,6 @@ class ModalView extends Component {
             modal: !prevState.modal
         }))
         this.getDataByID(value);
-        
     }
 
     getDataByID(value){
@@ -37,8 +35,7 @@ class ModalView extends Component {
             })
           );
     }
-
-
+    
     render() {
         console.log(this.state.data);
         return (

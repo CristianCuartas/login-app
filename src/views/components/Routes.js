@@ -7,7 +7,7 @@ import HomePage from './../HomePage/HomePage';
 import Ver from '../HomePage/components/Ver';
 import Modificar from './../HomePage/components/Modificar';
 import Eliminar from './../HomePage/components/Eliminar';
-import Logout from "./../HomePage/components/logout"
+import Logout from "./../HomePage/components/Logout"
 import { decode } from 'punycode';
 
 

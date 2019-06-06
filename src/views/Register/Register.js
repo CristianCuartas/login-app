@@ -18,22 +18,39 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
+      name: "",
       password: "",
-      firstName:"",
-      lastName:"",
+      id:"",
       email:"",
-      age:""
+      register:[]
     };
   }
 
-  handleChangeInput = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
+  sendData = () => {
+    fetch("http://localhost:4000/users", {
+      method: 'POST', 
+      body: JSON.stringify({
+        id: this.state.id,
+        name:this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      }), 
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => console.log('Success', response));
+}
+
+handleSubmit = e =>{
+  e.preventDefault();
+  this.sendData();
+}
 
   render() {
+    console.log(this.state.register);
     return (
       <div className="app flex-row align-items-center">
       <div style={{marginTop:"150px"}}>
@@ -62,13 +79,13 @@ class Login extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          name="firstName"
-                          id="firstName"
+                          name="id"
+                          id="id"
                           type="text"
-                          placeholder="First name"
-                          autoComplete="firstName"
+                          placeholder="Id"
+                          autoComplete="id"
                           onChange={e => {
-                            this.handleChangeInput(e);
+                            this.setState({id:e.target.value});
                           }}
                         />
                       </InputGroup>
@@ -79,34 +96,32 @@ class Login extends Component {
                           </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          name="lastName"
-                          id="lastName"
+                          name="name"
+                          id="name"
                           type="text"
-                          placeholder="Last name"
-                          autoComplete="lastName"
+                          placeholder="Name"
+                          autoComplete="name"
                           onChange={e => {
-                            this.handleChangeInput(e);
+                            this.setState({name:e.target.value});
                           }}
                         />
                       </InputGroup>
-
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            @
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          name="username"
-                          id="username"
-                          type="text"
-                          placeholder="Username"
-                          autoComplete="username"
-                          onChange={e => {
-                            this.handleChangeInput(e);
-                          }}
-                        />
-                      </InputGroup>
+                      <InputGroup className="mb-4">
+                      <InputGroupAddon addonType="prepend">
+                        <InputGroupText>
+                          @
+                        </InputGroupText>
+                      </InputGroupAddon>
+                      <Input
+                        id="password"
+                        type="password"
+                        placeholder="Password"
+                        autoComplete="current-password"
+                        onChange={e => {
+                          this.setState({password:e.target.value});
+                        }}
+                      />
+                    </InputGroup>
                       <InputGroup className="mb-3">
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
@@ -120,47 +135,19 @@ class Login extends Component {
                           placeholder="Email"
                           autoComplete="email"
                           onChange={e => {
-                            this.handleChangeInput(e);
+                            this.setState({email:e.target.value});
                           }}
                         />
                       </InputGroup>
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            @
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          name="age"
-                          id="age"
-                          type="number"
-                          placeholder="Age"
-                          autoComplete="age"
-                          onChange={e => {
-                            this.handleChangeInput(e);
-                          }}
-                        />
-                      </InputGroup>
-                      <InputGroup className="mb-4">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            @
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          id="password"
-                          type="password"
-                          placeholder="Password"
-                          autoComplete="current-password"
-                          onChange={e => this.handleChangeInput(e)}
-                        />
-                      </InputGroup>
+                      
                       <Row>
                         <Col xs="12">
                           <Button
                             href="#"
+                            onClick={(e)=> this.handleSubmit(e)}
                             className="btn btn-block"
                             color="primary"
+
                           >
                             Sign Up!<i className="fa fa-arrow-circle-right" />
                           </Button>
