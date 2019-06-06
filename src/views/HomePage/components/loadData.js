@@ -23,7 +23,7 @@ import {
 import url from "./../../../Conection/server";
 import urlProducts from "../../../Conection/serverBD";
 
-class Modificar extends Component {
+class loadData extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -108,32 +108,7 @@ componentDidMount(){
     console.log(this.state.id);
     return (
       <div className="app flex-row align-items-center">
-      <div style={{marginTop:"50px"}}>
         <Container>
-          <Navbar  color="faded" light>
-            <NavbarBrand href="#" className="mr-auto"></NavbarBrand>
-            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Button className="" color="danger" href="/#/logout">
-            Log out! <i className="fa fa-arrow-circle-right" />
-            </Button>
-             <Collapse isOpen={!this.state.collapsed} navbar>
-              <Nav navbar>
-              <NavItem>
-                <NavLink href="#Ver">Ver </NavLink>
-               </NavItem>
-               <NavItem>
-                <NavLink href="/#/logout">Registrar </NavLink>
-               </NavItem>
-               <NavItem>
-                <NavLink href="#Modificar">Modificar </NavLink>
-               </NavItem>
-               <NavItem>
-                <NavLink href="#Eliminar">Eliminar </NavLink>
-               </NavItem>
-              </Nav>
-            </Collapse>
-          </Navbar>
-
           <div style={{marginTop:"100px"}}>
           <h1 className="text-center">P R O D U C T O S</h1>
           <br />
@@ -184,14 +159,16 @@ componentDidMount(){
           </Col>
           </Row>
           <Button color="primary" onClick={(e) => this.handleUdapte(e)} >Update</Button>
+          <br></br>
+          <br></br>
+          <p></p>
         </Form>
         </Collapse>
         </div>
           </Container>
         </div>
-      </div>
     );
   }
 }
 
-export default Modificar;
+export default loadData;

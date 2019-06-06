@@ -2,23 +2,8 @@ import React, {Component} from 'react';
 import { TableHeaderColumn, BootstrapTable } from 'react-bootstrap-table';
 import { Table, Row, Col, Container, NavbarBrand, NavbarToggler, Nav, Navbar, Button, Collapse, NavItem, NavLink} from 'reactstrap';
 import url from "./../../../Conection/server";
-
-const dataVer = [
-    {
-        nombre: "Cristian",
-        edad: 18
-    },
-    {
-        nombre: "Ricardo",
-        edad: 20
-    },
-    {
-        nombre: "Juan",
-        edad: 12
-    }
-
-]
-
+import "./../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
+import ModalView from "./Modals/ModalView";
 
 class Ver extends Component{
     constructor(props){
@@ -26,7 +11,8 @@ class Ver extends Component{
         this.state={
           collapsed: true,
           data:[],
-          token: "Bearer"
+          token: "Bearer",
+          modal: false
         };
         this.toggleNavbar = this.toggleNavbar.bind(this);
     }
@@ -39,7 +25,7 @@ class Ver extends Component{
 
     getData = () => {
       fetch(url + "products", {
-        method: 'GET', // or 'PUT'
+        method: 'GET', 
         headers:{
           'Content-Type': 'application/json',
           'Authorization': this.state.token,
@@ -49,25 +35,24 @@ class Ver extends Component{
       .then(response => this.setState({ data: response }));
     }
     
-
     componentDidMount(){
       this.getData();
     }
 
-    render(){
-      const aux = this.state.data.map((obj, idx) => {
-        return (
-          <tr key={idx} value={obj.id}>
-            <td scope="col">{obj.id}</td>
-            <td scope="col">{obj.name}</td>
-            <td scope="col">{obj.cost}</td>
-            <td scope="col">{obj.quantity}</td>
-          </tr>
+
+    renderDetails(cell,row){
+      return(
+          <Button outline color="primary" onClick={() => this.openModal(row.id)}> Ver producto</Button>
         )
-      })
-      console.log(this.state.data);
+    }
+
+    openModal(value){
+     this.refs.child.toggle(value);
+    }
+
+    render(){
     return(
-    <div className="app flex-row align-items-center">
+      <div className="app flex-row align-items-center">
       <div style={{marginTop:"50px"}}>
         <Container>
           <Navbar  color="faded" light>
@@ -97,23 +82,49 @@ class Ver extends Component{
           <h1 className="text-center">P R O D U C T O S</h1>
           <br />
           <div className="text-center">
-           <Table striped dark className="tableMap">
-             <thead className="thead-light">
-                <tr>
-                  <th style={{width:"150px"}} scope="row">Id</th>
-                  <th style={{width:"150px"}} scope="row">Nombre</th>
-                  <th style={{width:"150px"}} scope="row">Costo</th>
-                  <th style={{width:"150px"}} scope="row">Cantidad</th>
-                </tr>
-              </thead>
-                <tbody>{aux}</tbody>
-            </Table>
+            <div className="container">
+              <div className="row">
+                  <div className="col-md-12">
+                    <BootstrapTable data={this.state.data}  bordered={ false } hover striped>
+                      <TableHeaderColumn 
+                      isKey width={"50"}
+                      dataAlign="center"
+                      dataField={"id"}> 
+                      Producto ID 
+                      </TableHeaderColumn>
+                      <TableHeaderColumn 
+                      width={"50"}
+                      dataAlign="center" 
+                      dataField={"name"}> 
+                      Nombre  
+                       </TableHeaderColumn>
+                      <TableHeaderColumn 
+                      width={"50"}
+                      dataAlign="center"
+                      dataField={"cost"}> 
+                      Costo 
+                      </TableHeaderColumn>
+                      <TableHeaderColumn 
+                      width={"50"}
+                      dataAlign="center"
+                      dataField={"quantity"}> 
+                      Cantidad 
+                      </TableHeaderColumn>
+                      <TableHeaderColumn width={"50"}
+                      dataAlign="center"
+                      dataFormat={(row,cell) => this.renderDetails(row, cell)}>
+                       Acciones
+                      </TableHeaderColumn>
+                    </BootstrapTable>
+                  </div>
+                </div>
+                <ModalView modalview={this.state.modal} ref={"child"}/>
+            </div>      
             </div>
-          </div>
-          </Container>
-        </div>
             </div>
-                  
+            </Container>
+            </div>
+            </div>
         )
     }
 }
