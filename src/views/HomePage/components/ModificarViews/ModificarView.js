@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
 import {
-  Col,Row,
   Button,
+  Card,
+  CardTitle,
+  CardText,
+  Col,
   Container,
+  Row,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -10,15 +14,13 @@ import {
   Nav,
   NavItem,
   NavLink,
-  Jumbotron,
-  Fade
 } from "reactstrap";
-class HomePage extends Component {
+
+class ModificarView extends Component {
   constructor(props) {
     super(props);
     this.state = {
     collapsed: true,
-    fadeIn: false
     };
     this.toggleNavbar = this.toggleNavbar.bind(this);
   }
@@ -29,16 +31,9 @@ class HomePage extends Component {
     })
   }
 
-  
-  toggle=()=> {
-    this.setState({
-        fadeIn: !this.state.fadeIn
-    });
-  }
 
   render() {
     return (
-
       <div className="app flex-row align-items-center">
       <div style={{marginTop:"50px"}}>
         <Container>
@@ -51,48 +46,52 @@ class HomePage extends Component {
              <Collapse isOpen={!this.state.collapsed} navbar>
               <Nav navbar>
               <NavItem>
+                <NavLink href="#HomePage">Página principal </NavLink>
+               </NavItem>
+              <NavItem>
                 <NavLink href="#Ver">Ver </NavLink>
                </NavItem>
+               <NavItem>
                {/*<NavItem>
                 <NavLink href="/#/logout">Registrar </NavLink>
                </NavItem>*/}
-               <NavItem>
-                <NavLink href="#ModificarView">Modificar </NavLink>
+                <NavLink href="#Modificar">Modificar </NavLink>
                </NavItem>
                <NavItem>
                 <NavLink href="#Eliminar">Eliminar </NavLink>
                </NavItem>
               </Nav>
             </Collapse>
-          </Navbar>  
-          <br/>
-          <Row>
-          <Col md="12">
-          <div>
-      <Jumbotron>
-        <h1 className="display-3">Hola men!</h1>
-        <p className="lead">Bienvenido a tu sección de usuario, acá tendras acceso 
-        a ver, modificar y eliminar los productos.</p>
-        <hr className="my-2" />
-        <p>Esto es una practica de React JS con un jsonAPI.</p>
-
-        <Row>
-        <Col md="12">
-        <Button color="primary" onClick={this.toggle}>Leer más</Button>
-        <Fade in={this.state.fadeIn} tag="h1" className="mt-3">
-            Eres increible!
-        </Fade>
-        </Col>
-        </Row>
-      </Jumbotron>
-    </div>
-          </Col>
-          </Row>       
-          </Container>
-          </div>
-      </div>
+          </Navbar>
+            </Container>
+            <div style={{marginTop:"150px"}}>
+            <Container>
+            <Row>
+      <Col md="4">
+        <Card body>
+          <CardTitle className="text-center">Modificar productos</CardTitle>
+          <Button href="#Modificar"outline color="primary">Modificar</Button>
+        </Card>
+      </Col>
+      <Col md="4">
+        <Card body>
+          <CardTitle className="text-center">Modificar localizaciones</CardTitle>
+          <Button href="#ModificarLocations"outline color="primary">Modificar</Button>
+        </Card>
+      </Col>
+      <Col md="4">
+        <Card body>
+          <CardTitle className="text-center">Modificar familias</CardTitle>
+          <Button href="#ModificarFamilies" outline color="primary">Modificar</Button>
+        </Card>
+      </Col>
+      </Row>
+            </Container>
+            </div>
+            </div>
+            </div>
     );
   }
 }
 
-export default HomePage;
+export default ModificarView;

@@ -15,7 +15,7 @@ import {
   Alert,
   Collapse
 } from "reactstrap";
-import NEXT from './../../sources/img/curve-arrow.svg';
+
 
 class Login extends Component {
   constructor(props) {
@@ -51,11 +51,28 @@ buttonSign = () =>{
       onClick={(e)=> this.handleSubmit(e)}
       className="btn btn-block"
       color="primary"
+      
       >
     Sign Up!<i className="fa fa-arrow-circle-right" />
     </Button>
   )
 }
+
+buttonSignDisabled = () =>{
+  return(
+    <Button
+      href="#"
+      onClick={(e)=> this.handleSubmit(e)}
+      className="btn btn-block"
+      color="primary"
+      style={{display:'none'}}
+      >
+    Sign Up!<i className="fa fa-arrow-circle-right" />
+    </Button>
+  )
+}
+
+
   sendData = () => {
     fetch("http://localhost:4000/users", {
       method: 'POST', 
@@ -96,10 +113,8 @@ handleSubmit = e =>{
     console.log(this.state.id);
     return (
       <div className="app flex-row align-items-center">
-      <div style={{marginTop:"10px"}}>
-      
+      <div style={{marginTop:"150px"}}>
         <Container>
-        <a href="/"><img src={NEXT} style={{marginLeft:"160px"}}/></a>
           <Row className="justify-content-center">
             <Col md="6">
               <CardGroup>
@@ -115,7 +130,7 @@ handleSubmit = e =>{
                           </div>
                         </div>
                       </div>
-                      <h1 className="text-center"> Sign Up</h1> 
+                      <h1 className="text-center">Sign Up</h1>
                       <br/>
                       <Alert  color="danger" isOpen={this.state.errorVisible} toggle={this.onDismissError}>
                         <b>No se ha podido registar el usuario exitosamente.</b>                  
@@ -208,9 +223,8 @@ handleSubmit = e =>{
                         <Col xs="12">
                         {this.buttonSign()}
                         </Col>
+
                       </Row>
-              
-                      
                     </Form>
                   </CardBody>
                 </Card>

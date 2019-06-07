@@ -8,6 +8,9 @@ import Ver from '../HomePage/components/Ver';
 import Modificar from './../HomePage/components/Modificar';
 import Eliminar from './../HomePage/components/Eliminar';
 import Logout from "./../HomePage/components/Logout"
+import ModificarLocations from "./../HomePage/components/ModificarViews/ModificarLocations";
+import ModificarFamilies from "./../HomePage/components/ModificarViews/ModificarFamilies";
+import ModificarView from "./../HomePage/components/ModificarViews/ModificarView";
 import { decode } from 'punycode';
 
 
@@ -36,6 +39,9 @@ const AppRoutes = () =>(
      <Switch>
         <Route exact path="/" component={Login}/>
         <Route exact path="/register" component={Register}/>
+        <PrivatedRoute exta path="/modificarlocations" component={ModificarLocations}/>
+        <PrivatedRoute exta path="/modificarfamilies" component={ModificarFamilies}/>
+        <PrivatedRoute exta path="/modificarview" component={ModificarView}/>
         <PrivatedRoute exact path="/homepage" component={HomePage}/>
         <PrivatedRoute exact path="/ver" component={Ver}/>
         <PrivatedRoute exact path="/modificar" component={Modificar}/>

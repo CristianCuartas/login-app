@@ -111,13 +111,16 @@ componentDidMount(){
              <Collapse isOpen={!this.state.collapsed} navbar>
               <Nav navbar>
               <NavItem>
+                <NavLink href="#HomePage">Página principal </NavLink>
+               </NavItem>
+              <NavItem>
                 <NavLink href="#Ver">Ver </NavLink>
                </NavItem>
-               <NavItem>
+               {/*<NavItem>
                 <NavLink href="/#/logout">Registrar </NavLink>
-               </NavItem>
+               </NavItem>*/}
                <NavItem>
-                <NavLink href="#Modificar">Modificar </NavLink>
+                <NavLink href="#ModificarView">Modificar </NavLink>
                </NavItem>
                <NavItem>
                 <NavLink href="#Eliminar">Eliminar </NavLink>

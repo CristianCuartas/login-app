@@ -1,57 +1,88 @@
 import React, {Component} from 'react';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardGroup,
+  Col,
+  Container,
+  Form,
+  Row,
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  FormGroup,
+  Label,
+  Input,
+  Table
+} from "reactstrap";
 import { TableHeaderColumn, BootstrapTable } from 'react-bootstrap-table';
-import { Table, Row, Col, Container, NavbarBrand, NavbarToggler, Nav, Navbar, Button, Collapse, NavItem, NavLink} from 'reactstrap';
-import url from "./../../../Conection/server";
-import "./../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
-import ModalView from "./Modals/ModalView";
+import url from "./../../../../Conection/server";
+import "./../../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
+import ModalUdapte from './../../components/Modals/ModalUdapte';
 
-class Ver extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-          collapsed: true,
-          data:[],
-          token: "Bearer",
-          modal: false
-        };
-        this.toggleNavbar = this.toggleNavbar.bind(this);
-    }
+class ModificarLocations extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    collapsed: true,
+    collapsedUdapte: false,
+    modal: false,
+    data:[],
+    token: "Bearer",
+    id: '',
+    name:"",
+    cost:"" ,
+    quantity:""
+    };
+    this.toggleNavbar = this.toggleNavbar.bind(this);
+  }
 
-    toggleNavbar(){
-      this.setState({
-        collapsed:!this.state.collapsed    
-      })
-    }
-
-    getData = () => {
-      fetch(url + "products", {
-        method: 'GET', 
-        headers:{
-          'Content-Type': 'application/json',
-          'Authorization': this.state.token,
-        }
-      }).then(res => res.json())
-      .catch(error => console.error('Error:', error))
-      .then(response => this.setState({ data: response }));
-    }
+  toggleUdapte = () =>{
+    this.setState({
+      collapsedUdapte: !this.state.collapsedUdapte
+    })
     
-    componentDidMount(){
-      this.getData();
-    }
+  }
+  toggleNavbar(){
+    this.setState({
+      collapsed:!this.state.collapsed    
+    })
+  }
 
 
-    renderDetails(cell,row){
-      return(
-          <Button outline color="primary" onClick={() => this.openModal(row.id)}> Ver producto</Button>
-        )
-    }
+  selectUdaptade = () => {
+    fetch(url + "locations", {
+      method: 'GET', // or 'PUT'
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': this.state.token,
+      }
+      
+    }).then(res => res.json())
+    .catch(error => console.error('Error:', error))
+    .then(response => this.setState({ data: response }));
+  }
+  componentDidMount(){
+    this.selectUdaptade();
+  }
 
-    openModal(value){
-     this.refs.child.toggle(value);
-    }
+renderDetail(cell, row){
+  return(
+    <Button outline color="primary" onClick={()=>{this.openModal(row.id)}}>Modificar producto</Button>
+  )
+}
 
-    render(){
-    return(
+openModal(value){
+this.refs.children2.toggle(value);
+}
+
+  render() {
+    return (
       <div className="app flex-row align-items-center">
       <div style={{marginTop:"50px"}}>
         <Container>
@@ -71,7 +102,7 @@ class Ver extends Component{
                </NavItem>
                <NavItem>
                {/*<NavItem>
-              <NavLink href="/#/logout">Registrar </NavLink>
+                <NavLink href="/#/logout">Registrar </NavLink>
                </NavItem>*/}
                 <NavLink href="#ModificarView">Modificar </NavLink>
                </NavItem>
@@ -101,34 +132,24 @@ class Ver extends Component{
                       dataField={"name"}> 
                       Nombre  
                        </TableHeaderColumn>
-                      <TableHeaderColumn 
-                      width={"50"}
-                      dataAlign="center"
-                      dataField={"cost"}> 
-                      Costo 
-                      </TableHeaderColumn>
-                      <TableHeaderColumn 
-                      width={"50"}
-                      dataAlign="center"
-                      dataField={"quantity"}> 
-                      Cantidad 
-                      </TableHeaderColumn>
                       <TableHeaderColumn width={"50"}
                       dataAlign="center"
-                      dataFormat={(row,cell) => this.renderDetails(row, cell)}>
+                      dataFormat={(cell, row) => this.renderDetail(cell,row)}
+                      >
                        Acciones
                       </TableHeaderColumn>
                     </BootstrapTable>
                   </div>
                 </div>
-                <ModalView modalview={this.state.modal} ref={"child"}/>
+                  <ModalUdapte modaludapte={this.state.modal} ref={"children2"}/>
             </div>      
             </div>
             </div>
             </Container>
             </div>
             </div>
-        )
-    }
+    );
+  }
 }
-export default Ver;
+
+export default ModificarLocations;

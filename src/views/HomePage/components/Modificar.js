@@ -21,10 +21,9 @@ import {
   Table
 } from "reactstrap";
 import { TableHeaderColumn, BootstrapTable } from 'react-bootstrap-table';
-import url from "./../../../Conection/server";
-import urlProducts from "../../../Conection/serverBD";
+import url from "../../../Conection/server";
 import "./../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
-import ModalUdapte from './../components/Modals/ModalUdapte';
+import ModalUdapte from './Modals/ModalUdapte';
 
 class Modificar extends Component {
   constructor(props) {
@@ -98,13 +97,16 @@ this.refs.children2.toggle(value);
              <Collapse isOpen={!this.state.collapsed} navbar>
               <Nav navbar>
               <NavItem>
+                <NavLink href="#HomePage">Página principal </NavLink>
+               </NavItem>
+              <NavItem>
                 <NavLink href="#Ver">Ver </NavLink>
                </NavItem>
                <NavItem>
-               <NavItem>
+               {/*<NavItem>
                 <NavLink href="/#/logout">Registrar </NavLink>
-               </NavItem>
-                <NavLink href="#Modificar">Modificar </NavLink>
+               </NavItem>*/}
+                <NavLink href="#ModificarView">Modificar </NavLink>
                </NavItem>
                <NavItem>
                 <NavLink href="#Eliminar">Eliminar </NavLink>
