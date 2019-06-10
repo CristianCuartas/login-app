@@ -1,21 +1,18 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button, Form, FormGroup, Label, Input}  from "reactstrap";
-import urlProducts from "../../../../Conection/serverBD";
+import urlFamilies from "../../../../Conection/serverBDfamilies";
 import url from "../../../../Conection/server";
 
-class ModalUdapte extends Component{
+class ModalUdapteFamilies extends Component{
     constructor(props){
         super(props);
         this.state={
             data:{},
-            modal: this.props.modaludapte,
+            modal: this.props.modaludaptefamilies,
             producto: [],
             id:'',
             name:'',
-            cost:'',
-            quantity:'',
-            token: "Bearer",
         }
     }
 
@@ -27,7 +24,7 @@ class ModalUdapte extends Component{
     }
 
     getDataById =(value)=>{
-        fetch(url + "products/" + value, {
+        fetch(url + "families/" + value, {
             method: "GET",
             headers: {
               "content-type": "application/json",
@@ -43,13 +40,11 @@ class ModalUdapte extends Component{
     }
 
     udapteData =()=>{
-      fetch(urlProducts + `${this.state.data.id}` , {
+      fetch( urlFamilies + `${this.state.data.id}` , {
         method: 'PUT',
         body: JSON.stringify({
           "id": this.state.data.id,
           "name": this.state.name,
-          "cost": this.state.cost ,
-          "quantity": this.state.quantity
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -69,8 +64,6 @@ class ModalUdapte extends Component{
       console.log(this.state.data.id)
       console.log(this.state.id);
       console.log(this.state.name);
-      console.log(this.state.cost);
-      console.log(this.state.quantity);
         return(
             <div>
             <Modal isOpen={this.state.modal}>
@@ -87,16 +80,6 @@ class ModalUdapte extends Component{
               <Input defaultValue={this.state.data.name} type="text" onChange={(e)=>{this.setState({name:e.target.value})}}></Input>
               </FormGroup>
               </div>
-              <div className="row">
-              <FormGroup className="form-group col-md-6">
-              <Label>Costo:</Label>
-              <Input defaultValue={this.state.data.cost} type="text" onChange={(e)=>{this.setState({cost:e.target.value})}}></Input>
-              </FormGroup>
-              <FormGroup className="form-group col-md-6">
-              <Label>Cantidad:</Label>
-              <Input defaultValue={this.state.data.quantity} type="text" onChange={(e)=>{this.setState({quantity:e.target.value})}}></Input>
-              </FormGroup>
-              </div>
             </Form>
             </ModalBody>
             <ModalFooter>
@@ -109,8 +92,8 @@ class ModalUdapte extends Component{
     }
 }
 
-ModalUdapte.propTypes={
-    modaludapte: PropTypes.bool.isRequired
+ModalUdapteFamilies.propTypes={
+    modaludaptefamilies: PropTypes.bool.isRequired
 }
 
-export default ModalUdapte;
+export default ModalUdapteFamilies;

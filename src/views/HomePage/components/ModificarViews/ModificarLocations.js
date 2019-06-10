@@ -23,7 +23,7 @@ import {
 import { TableHeaderColumn, BootstrapTable } from 'react-bootstrap-table';
 import url from "./../../../../Conection/server";
 import "./../../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
-import ModalUdapte from './../../components/Modals/ModalUdapte';
+import ModalUdapte from './../../components/Modals/ModalUdapteLocations';
 
 class ModificarLocations extends Component {
   constructor(props) {
@@ -36,8 +36,6 @@ class ModificarLocations extends Component {
     token: "Bearer",
     id: '',
     name:"",
-    cost:"" ,
-    quantity:""
     };
     this.toggleNavbar = this.toggleNavbar.bind(this);
   }
@@ -78,7 +76,7 @@ renderDetail(cell, row){
 }
 
 openModal(value){
-this.refs.children2.toggle(value);
+this.refs.children3.toggle(value);
 }
 
   render() {
@@ -141,7 +139,7 @@ this.refs.children2.toggle(value);
                     </BootstrapTable>
                   </div>
                 </div>
-                  <ModalUdapte modaludapte={this.state.modal} ref={"children2"}/>
+                  <ModalUdapte modaludaptelocation={this.state.modal} ref={"children3"}/>
             </div>      
             </div>
             </div>

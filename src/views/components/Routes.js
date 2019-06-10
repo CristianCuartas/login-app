@@ -5,9 +5,9 @@ import Login from './../Login/Login';
 import Register from './../Register/Register';
 import HomePage from './../HomePage/HomePage';
 import Ver from '../HomePage/components/Ver';
-import Modificar from './../HomePage/components/Modificar';
+import ModificarProducts from "./../HomePage/components/ModificarViews/ModificarProducts";
 import Eliminar from './../HomePage/components/Eliminar';
-import Logout from "./../HomePage/components/Logout"
+import Logout from "./../HomePage/components/Logout";
 import ModificarLocations from "./../HomePage/components/ModificarViews/ModificarLocations";
 import ModificarFamilies from "./../HomePage/components/ModificarViews/ModificarFamilies";
 import ModificarView from "./../HomePage/components/ModificarViews/ModificarView";
@@ -44,7 +44,7 @@ const AppRoutes = () =>(
         <PrivatedRoute exta path="/modificarview" component={ModificarView}/>
         <PrivatedRoute exact path="/homepage" component={HomePage}/>
         <PrivatedRoute exact path="/ver" component={Ver}/>
-        <PrivatedRoute exact path="/modificar" component={Modificar}/>
+        <PrivatedRoute exact path="/modificar" component={ModificarProducts}/>
         <PrivatedRoute exact path="/eliminar" component={Eliminar}/>
         <PrivatedRoute exact path="/logout" component={Logout}/>
     </Switch>

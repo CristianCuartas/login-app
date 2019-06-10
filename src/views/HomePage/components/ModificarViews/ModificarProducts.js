@@ -21,9 +21,9 @@ import {
   Table
 } from "reactstrap";
 import { TableHeaderColumn, BootstrapTable } from 'react-bootstrap-table';
-import url from "../../../Conection/server";
-import "./../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
-import ModalUdapte from './Modals/ModalUdapte';
+import url from "../../../../Conection/server";
+import "./../../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
+import ModalUdapte from './../Modals/ModalUdapte';
 
 class Modificar extends Component {
   constructor(props) {

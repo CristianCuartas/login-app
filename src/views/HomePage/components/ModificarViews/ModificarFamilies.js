@@ -23,7 +23,7 @@ import {
 import { TableHeaderColumn, BootstrapTable } from 'react-bootstrap-table';
 import url from "./../../../../Conection/server";
 import "./../../../../../node_modules/react-bootstrap-table/css/react-bootstrap-table.css";
-import ModalUdapte from './../../components/Modals/ModalUdapte';
+import ModalUdapteFamilies from './../../components/Modals/ModalUpdateFamilies';
 
 class ModificarFamilies extends Component {
   constructor(props) {
@@ -78,7 +78,7 @@ renderDetail(cell, row){
 }
 
 openModal(value){
-this.refs.children2.toggle(value);
+this.refs.children4.toggle(value);
 }
 
   render() {
@@ -141,7 +141,7 @@ this.refs.children2.toggle(value);
                     </BootstrapTable>
                   </div>
                 </div>
-                  <ModalUdapte modaludapte={this.state.modal} ref={"children2"}/>
+                  <ModalUdapteFamilies modaludaptefamilies={this.state.modal} ref={"children4"}/>
             </div>      
             </div>
             </div>
