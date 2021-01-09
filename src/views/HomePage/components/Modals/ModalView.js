@@ -72,19 +72,7 @@ class ModalView extends Component {
                     </dl>
       
                 </div>
-                  <div className="col-md-6">            
-                      <dl className="param">
-                        <dt> Id de ubicación: </dt>
-                        <dd> {this.state.data.locationId} </dd>
-                      </dl>
-           
-                  </div>
-                  <div className="col-md-6">
-                      <dl className="param">
-                        <dt> Id de familia: </dt>
-                        <dd> {this.state.data.familyId} </dd>
-                      </dl>
-                  </div>
+               
                 </div>
                     </ModalBody>
                     <ModalFooter>

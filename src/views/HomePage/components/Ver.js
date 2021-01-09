@@ -31,8 +31,9 @@ class Ver extends Component{
           'Authorization': this.state.token,
         }
       }).then(res => res.json())
+      .then(response => this.setState({ data: response }))
       .catch(error => console.error('Error:', error))
-      .then(response => this.setState({ data: response }));
+      
     }
     
     componentDidMount(){

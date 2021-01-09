@@ -64,27 +64,15 @@ class ModificarView extends Component {
             </Collapse>
           </Navbar>
             </Container>
-            <div style={{marginTop:"150px"}}>
+            <div style={{marginTop:"150px"}} className="d-flex content-justify-center">
             <Container>
             <Row>
-      <Col md="4">
+      <Col md="4" >
         <Card body>
           <CardTitle className="text-center">Modificar productos</CardTitle>
           <Button href="#Modificar"outline color="primary">Modificar</Button>
         </Card>
-      </Col>
-      <Col md="4">
-        <Card body>
-          <CardTitle className="text-center">Modificar localizaciones</CardTitle>
-          <Button href="#ModificarLocations"outline color="primary">Modificar</Button>
-        </Card>
-      </Col>
-      <Col md="4">
-        <Card body>
-          <CardTitle className="text-center">Modificar familias</CardTitle>
-          <Button href="#ModificarFamilies" outline color="primary">Modificar</Button>
-        </Card>
-      </Col>
+      </Col>    
       </Row>
             </Container>
             </div>

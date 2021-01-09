@@ -16,8 +16,6 @@ import {
 } from "reactstrap";
 import url from './../../Conection/server';
 
-
-
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +23,8 @@ class Login extends Component {
       username: "",
       password: "",
       visible: false,
-      redirectToReferrer:false
+      redirectToReferrer:false,
+      error: ""
     };
     this.onDismiss = this.onDismiss.bind(this);
   }
@@ -35,7 +34,7 @@ class Login extends Component {
   }
 
   sendData = () => {
-    fetch(url + "auth/login", {
+    fetch(url + "signin", {
       method: 'POST', 
       body: JSON.stringify({
         email: this.state.username,
@@ -45,19 +44,23 @@ class Login extends Component {
         'Content-Type': 'application/json'
       }
     })
-    .then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => {localStorage.setItem( 'access_token', JSON.stringify(response.access_token))
-                       console.log('Success:', response)
-                       console.log(response.access_token)
-                      
-                       if (response.access_token !== undefined){
-                        window.location="http://localhost:3000/#/HomePage"
-                       } else {                       
-                            this.setState({ visible: true})  
-                       }
-                       
-        });
+    .then(response => response.json())
+    .then(data => {
+      localStorage.setItem( 'access_token', JSON.stringify(data.accessToken))                
+      if (data.accessToken !== undefined){
+        window.location="http://localhost:3000/#/HomePage"
+      } else {               
+          this.setState({
+            error: data
+          })
+          setTimeout(() =>{
+            this.setState({
+              visible:true
+            })          
+          },1000);
+        }                           
+      })
+    .catch(error => console.error('Error:', error))   
 }
 
 handleSubmit = e =>{
@@ -67,7 +70,7 @@ handleSubmit = e =>{
 }
 
   render() {
-    // console.log (localStorage.getItem('access_token'));
+    const {error, visible} = this.state;
     return (
       <div className="app flex-row align-items-center">
       <div style={{marginTop:"150px"}}>
@@ -120,8 +123,8 @@ handleSubmit = e =>{
                         />
                       </InputGroup>
 
-                      <Alert color="danger" isOpen={this.state.visible} toggle={this.onDismiss}>
-                      <b>Email y/o password incorrecto.</b>
+                      <Alert color="danger" isOpen={visible} toggle={this.onDismiss}>
+                      <b>{error}</b>
                       </Alert>
 
                       <Row>

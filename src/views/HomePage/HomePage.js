@@ -70,17 +70,20 @@ class HomePage extends Component {
           <Col md="12">
           <div>
       <Jumbotron>
-        <h1 className="display-3">Hola men!</h1>
-        <p className="lead">Bienvenido a tu sección de usuario, acá tendras acceso 
-        a ver, modificar y eliminar los productos.</p>
+        <h1 className="display-3">Dashboard!</h1>
+        <p className="lead">Welcome to user section, here have access to view, edit and delete the products.</p>
         <hr className="my-2" />
-        <p>Esto es una practica de React JS con un jsonAPI.</p>
+        <p>This is a practice the react js with a json-server and json-server-auth.</p>
 
         <Row>
         <Col md="12">
-        <Button color="primary" onClick={this.toggle}>Leer más</Button>
-        <Fade in={this.state.fadeIn} tag="h1" className="mt-3">
-            Eres increible!
+        <Button color="primary" onClick={this.toggle}>Read more...</Button>
+        <Fade in={this.state.fadeIn} tag="p" className="mt-3">
+            <a href="https://www.npmjs.com/package/json-server">json-server</a>
+            <br/>
+            <a href="https://www.npmjs.com/package/json-server-auth">json-server-auth</a>
+            <br/>
+            <a href="https://github.com/CristianCuartas/login-app">login-app</a>
         </Fade>
         </Col>
         </Row>

@@ -56,13 +56,13 @@ class ModalUdapte extends Component{
           'Authorization': this.state.token,
         }
       }).then(response => response.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => this.setState({ producto: response }));
+      .then(response => this.setState({ producto: response }))  
+      .catch(error => console.error('Error:', error))
+        
      }
     handleUdapte = e => {
       e.preventDefault();
       this.udapteData();
-      // window.location.reload();
     }
 
     render(){

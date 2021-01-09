@@ -7,9 +7,7 @@ import HomePage from './../HomePage/HomePage';
 import Ver from '../HomePage/components/Ver';
 import ModificarProducts from "./../HomePage/components/ModificarViews/ModificarProducts";
 import Eliminar from './../HomePage/components/Eliminar';
-import Logout from "./../HomePage/components/Logout";
-import ModificarLocations from "./../HomePage/components/ModificarViews/ModificarLocations";
-import ModificarFamilies from "./../HomePage/components/ModificarViews/ModificarFamilies";
+import Logout from "./../HomePage/components/logout";
 import ModificarView from "./../HomePage/components/ModificarViews/ModificarView";
 import { decode } from 'punycode';
 
@@ -24,7 +22,6 @@ const isAuthenticated = () => {
     return true;
 }
 const PrivatedRoute = ({component: Component, ...rest}) =>(
-
     <Route 
         {...rest}
         render={props =>
@@ -39,8 +36,6 @@ const AppRoutes = () =>(
      <Switch>
         <Route exact path="/" component={Login}/>
         <Route exact path="/register" component={Register}/>
-        <PrivatedRoute exta path="/modificarlocations" component={ModificarLocations}/>
-        <PrivatedRoute exta path="/modificarfamilies" component={ModificarFamilies}/>
         <PrivatedRoute exta path="/modificarview" component={ModificarView}/>
         <PrivatedRoute exact path="/homepage" component={HomePage}/>
         <PrivatedRoute exact path="/ver" component={Ver}/>
