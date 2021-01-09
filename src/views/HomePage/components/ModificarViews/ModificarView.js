@@ -67,13 +67,13 @@ class ModificarView extends Component {
             <div style={{marginTop:"150px"}} className="d-flex content-justify-center">
             <Container>
             <Row>
-      <Col md="4" >
-        <Card body>
-          <CardTitle className="text-center">Modificar productos</CardTitle>
-          <Button href="#Modificar"outline color="primary">Modificar</Button>
-        </Card>
-      </Col>    
-      </Row>
+          <Col md="4" >
+            <Card body>
+              <CardTitle className="text-center">Modificar productos</CardTitle>
+              <Button href="#Modificar"outline color="primary">Modificar</Button>
+            </Card>
+          </Col>    
+          </Row>
             </Container>
             </div>
             </div>
